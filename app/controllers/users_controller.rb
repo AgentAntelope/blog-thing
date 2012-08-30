@@ -62,22 +62,13 @@ class UsersController < ApplicationController
   # PUT /users/1.json
   def update
     @user = User.find(params[:id])
-    
-    if @user.valid_password?(params[:user][:old_password])
-      if @user.update_attributes(params)
-        flash[:notice] = 'Successfully updated profile.'
-      else
-        render :action => 'edit'
-      end
-    else
-      flash[:warning] = 'Please enter the correct password.'
-    end
-
     respond_to do |format|
-      if @user.update_attributes(params[:user])
+      if @user.valid_password?(params[:old_password]) && @user.update_attributes(params[:user]) 
+        flash[:notice] = 'Successfully updated profile.'
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { head :no_content }
       else
+        flash[:warning] = "We couldn't update your password."
         format.html { render action: "edit" }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
