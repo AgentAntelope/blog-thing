@@ -10,11 +10,11 @@ class UserSessionsController < ApplicationController
       redirect_to user_path(current_user)
     else
       flash[:notice] = "Sorry, that login didn't work. Please try again."
-      redirect_to new_user_session_path
+      redirect_to new_user_sessions_path
     end
   end
   def destroy
     current_user_session.destroy
-    redirect_to new_user_session_path
+    redirect_to new_user_sessions_path
   end
 end
