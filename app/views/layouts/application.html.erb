@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Felltir's Amazing(ly shite) Blog App</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<% if current_user %>
+  <%= link_to 'Log out', user_sessions_path, :method => :delete %>
+<% else %>
+  <%= link_to 'Log in', new_user_session_path %> 
+<% end %>
+<% if flash.any? %>
+  <% [:notice, :warning].each do |status| %>
+    <%= flash[status] %>
+  <% end %>
+<% end %>
+<%= yield %>
+
+</body>
+</html>

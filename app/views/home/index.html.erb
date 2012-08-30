@@ -1,0 +1,14 @@
+<title>Felltir's Blog App</title>
+<h1>Felltir's Blog App</h1>
+<p>
+  <%= link_to "Index of past posts", posts_path %>
+  or
+  <%= link_to "post for yourself!", new_post_path %>
+</p>
+<% @posts.each do |post| %>
+  <div style="margin-bottom:10px;">
+    <%= link_to "#{post.title}", post %>
+    <br />
+    <%= "#{post.content}"%>
+  </div>
+<% end %>

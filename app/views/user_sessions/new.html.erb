@@ -1,0 +1,16 @@
+<h1>Login</h1>
+<%= form_for(@user_session) do |f| %>
+  <div class="field">
+    <%= f.label :login %><br />
+    <%= f.text_field :login %>
+  </div>
+  <div class="field">
+    <%= f.label :password %><br />
+    <%= f.password_field :password %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+<h2><%= link_to 'Create a user!', new_user_path %>
+<%= link_to 'Blog Index!', posts_path %><br /></h2>

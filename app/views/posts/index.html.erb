@@ -1,0 +1,17 @@
+<h1 style="text-align:center">Listing posts</h1>
+<br />
+<% Post.all.each do |post| %>
+<center>
+<%= link_to "#{post.title.truncate(50)}", post %>
+</center>
+<br />
+<%= "#{post.content}"%>
+<br />
+<%= link_to 'Edit', edit_post_path(post) %> |
+<%= link_to 'Delete', post, method: :delete, data: { confirm: 'Are you sure? This will permanently delete this post.'} %>
+<br />
+<br />
+<% end %>
+<center>
+<%= link_to 'New Post', new_post_path %>
+</center>
