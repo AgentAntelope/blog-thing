@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   def authenticate
     unless current_user
       flash[:notice] = "You're not logged in, I'm afraid. Care to fix that?"
-      redirect_to new_user_session_path
+      redirect_to new_user_sessions_path
       return false
     end
   end

@@ -25,9 +25,9 @@ class UsersController < ApplicationController
   # GET /users/new
   # GET /users/new.json
   def new
-    if @current_user
-      flash[:warning] = "You are already logged in as #{@current_user.login}!"
-      redirect_to user_path(@current_user) and return
+    if current_user
+      flash[:warning] = "You are already logged in as #{current_user.login}!"
+      redirect_to user_path(current_user) and return
     end
     @user = User.new
 

@@ -7,14 +7,22 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<p>
 <% if current_user %>
+<div id = "textbox">
+<p class = "alignleft">
+  <%= link_to "New post", new_post_path %> | 
   You are logged in as <%= link_to current_user.login, user_path(current_user)%>. Not you?
   <%= link_to 'Log out', user_sessions_path, :method => :delete %>
 <% else %>
   <%= link_to 'Log in', new_user_sessions_path %> 
 <% end %>
 </p>
+<p class = "alignright">
+<%= link_to "Posts index", posts_path %> | 
+<%= link_to "Users index", users_path %>
+</p>
+</div>
+<div style="clear: both;"></div>
 <p>
 <% if flash.any? %>
   <% [:notice, :warning].each do |status| %>
