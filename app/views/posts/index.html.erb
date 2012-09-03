@@ -2,14 +2,16 @@
 <br />
 <% Post.all.each do |post| %>
 <center>
-<%= link_to "#{post.title.truncate(50)}, posted by #{User.find(post.user_id).login}", post %>
+<%= link_to "#{post.title.truncate(50)}", post %>
+posted by 
+<%= link_to "#{User.find(post.user_id).login}", User.find(post.user_id) %>
 </center>
 <br />
 <%= "#{post.content}"%>
 <br />
 <% if @user_id == current_user %>
-<%= link_to 'Edit', edit_post_path(post) %> |
-<%= link_to 'Delete', post, method: :delete, data: { confirm: 'Are you sure? This will permanently delete this post.'} %>
+  <%= link_to 'Edit', edit_post_path(post) %> |
+  <%= link_to 'Delete', post, method: :delete, data: { confirm: 'Are you sure? This will permanently delete this post.'} %>
 <% end %>
 <br />
 <br />
