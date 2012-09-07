@@ -15,6 +15,3 @@
 *.log
 *.sql
 *.sqlite
-
-# Ignore database.yml
-/config/database.yml
