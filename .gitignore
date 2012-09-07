@@ -16,5 +16,5 @@
 *.sql
 *.sqlite
 
-# Ignore database.yml
+# Ignore database.yml in config
 /config/database.yml
