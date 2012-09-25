@@ -44,7 +44,12 @@ class PostsController < ApplicationController
     @post = Post.new(params[:post])
     
     @post.user_id = current_user.id
-
+    
+    unless @post.title? and @post.content?
+      redirect_to new_post_path, notice: "Please fill in all fields."
+      return
+    end
+    
     respond_to do |format|
       if @post.save
         format.html { redirect_to @post, notice: 'Post was successfully created.' }
