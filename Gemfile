@@ -6,6 +6,8 @@ gem 'rspec-rails'
 
 gem 'capybara'
 
+gem 'factory_girl_rails'
+
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
