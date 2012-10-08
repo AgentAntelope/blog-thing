@@ -63,8 +63,7 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     respond_to do |format|
-      if @user.valid_password?(params[:old_password]) && @user.update_attributes(params[:user]) 
-        flash[:notice] = 'Successfully updated profile.'
+      if @user.valid_password?(params[:old_password]) && @user.update_attributes(params[:user])
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { head :no_content }
       else
