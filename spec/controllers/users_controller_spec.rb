@@ -9,16 +9,17 @@ describe UsersController do
   end
   describe "new" do
     describe "when logged in" do
+      before do
+        @user = FactoryGirl.create(:user)
+        UserSession.create!(:login => @user.login, :password => @user.password)
+      end
+      
       it "will redirect to currently logged in user page" do
-        user = FactoryGirl.create(:user)
-        UserSession.create!(:login => user.login, :password => user.password)
         get :new
-        response.should redirect_to user_path(user)
+        response.should redirect_to user_path(@user)
       end
       
       it "will not not create a new user" do
-        user = FactoryGirl.create(:user)
-        UserSession.create!(:login => user.login, :password => user.password)
         lambda {get :new}.should_not change {User.count}
       end
     end
@@ -52,41 +53,36 @@ describe UsersController do
   
   describe "update" do
     describe "correct password" do
+      before do
+        @user = FactoryGirl.create(:user)
+        UserSession.create!(:login => @user.login, :password => @user.password)
+        put :update, :user => {:login => @user.login, :password => "Isherwood", :password_confirmation => "Isherwood"},
+                     :old_password => @user.password,
+                     :id => @user.id
+      end
       it "will change your password" do
-        user = FactoryGirl.create(:user)
-        UserSession.create!(:login => user.login, :password => user.password)
-        put :update, :user => {:login => user.login, :password => "Isherwood", :password_confirmation => "Isherwood"},
-                     :old_password => user.password,
-                     :id => user.id
-        user.reload.valid_password?("Isherwood").should be_true
+        
+        @user.reload.valid_password?("Isherwood").should be_true
       end
       
       it "redirects to the user page" do
-        user = FactoryGirl.create(:user)
-        UserSession.create!(:login => user.login, :password => user.password)
-        put :update, :user => {:login => user.login, :password => "Isherwood", :password_confirmation => "Isherwood"},
-                     :old_password => user.password,
-                     :id => user.id
-        response.should redirect_to user_path(user)
+        response.should redirect_to user_path(@user)
       end
     end
     
     describe "incorrect old password" do
-      it "will not change your password" do
-        user = FactoryGirl.create(:user)
-        UserSession.create!(:login => user.login, :password => user.password)
-        put :update, :user => {:login => user.login, :password => "Isherwood", :password_confirmation => "Isherwood"},
+      before do
+        @user = FactoryGirl.create(:user)
+        UserSession.create!(:login => @user.login, :password => @user.password)
+        put :update, :user => {:login => @user.login, :password => "Isherwood", :password_confirmation => "Isherwood"},
                      :old_password => "wouldyoukindlychangethepassword",
-                     :id => user.id
-        user.reload.valid_password?("Isherwood").should_not be_true
+                     :id => @user.id
+      end
+      it "will not change your password" do  
+        @user.reload.valid_password?("Isherwood").should_not be_true
       end
       
       it "will render edit" do
-      user = FactoryGirl.create(:user)
-        UserSession.create!(:login => user.login, :password => user.password)
-        put :update, :user => {:login => user.login, :password => "Isherwood", :password_confirmation => "Isherwood"},
-                     :old_password => "wouldyoukindlychangethepassword",
-                     :id => user.id
         should render_template :edit
       end
     end
