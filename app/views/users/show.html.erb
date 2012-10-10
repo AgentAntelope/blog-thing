@@ -2,7 +2,15 @@
   <b>Username:</b>
   <%= @user.login %>
 </p>
+<% @user.posts.each do |post| %>
+  <p>
+  <%= link_to post.title, post_path(post) %>
+  </p>
+  <p>
+  <%= post.content %>
+  </p>
+<% end %>
 <% if current_user == @user %>
-  <%= link_to 'Edit', edit_user_path(@user) %> | 
-  <%= link_to 'Delete', @user, method: :delete, data: { confirm: 'Are you sure?' } %>
+  <%= link_to 'Edit user', edit_user_path(@user) %> | 
+  <%= link_to 'Delete user', @user, method: :delete, data: { confirm: 'Are you sure?' } %>
 <% end %>
