@@ -11,7 +11,7 @@ describe UsersController do
     describe "when logged in" do
       before do
         @user = FactoryGirl.create(:user)
-        UserSession.create!(:login => @user.login, :password => @user.password)
+        UserSession.create!(:login => @user.login, :email => @user.email, :password => @user.password)
       end
       
       it "will redirect to currently logged in user page" do
@@ -28,12 +28,12 @@ describe UsersController do
     describe "with good params" do
       it "will create a new user" do
         lambda {
-          post :create, :user => {:login => "newlogin", :password => "newpassword", :password_confirmation => "newpassword"}
+          post :create, :user => {:login => "newlogin", :email => "test@example.com", :password => "newpassword", :password_confirmation => "newpassword"}
         }.should change {User.count}
       end
     
       it "will redirect" do
-        post :create, :user => {:login => "newlogin", :password => "newpassword", :password_confirmation => "newpassword"}
+        post :create, :user => {:login => "newlogin", :email => "test@example.com", :password => "newpassword", :password_confirmation => "newpassword"}
         response.should be_redirect 
       end
     end
@@ -56,7 +56,7 @@ describe UsersController do
       before do
         @user = FactoryGirl.create(:user)
         UserSession.create!(:login => @user.login, :password => @user.password)
-        put :update, :user => {:login => @user.login, :password => "Isherwood", :password_confirmation => "Isherwood"},
+        put :update, :user => {:login => @user.login, :email => @user.email, :password => "Isherwood", :password_confirmation => "Isherwood"},
                      :old_password => @user.password,
                      :id => @user.id
       end

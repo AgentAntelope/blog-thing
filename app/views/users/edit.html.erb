@@ -4,9 +4,12 @@ Minimum password length is 4 characters. <br />
 <%= form_for(@user) do |f| %>
   
   <div class="field">
-    <%= label_tag :old_password %><br />
-    <%= password_field_tag :old_password %>
-      
+    <%= f.label :old_password %><br />
+    <%= f.password_field :old_password %>
+  </div>
+  <div class="field">
+	<%= f.label :email %>
+	<%= f.text_field :email %>
   </div>
   <div class="field">
     <%= f.label :password %><br />
@@ -15,6 +18,7 @@ Minimum password length is 4 characters. <br />
   <div class="field">
     <%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation %>
+  </div>
   <div class="actions"><br />
     <%= f.submit %>
   </div>
